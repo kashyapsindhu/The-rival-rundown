@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Rival Rundown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d0d0d;
+      font-family: 'DM Sans', sans-serif;
+      color: #e8e6e0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
+    }
+
+    .email-wrapper {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-bottom: none;
+      padding: 36px 40px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c0392b, #e74c3c, #ff6b6b, #c0392b);
+      background-size: 200% 100%;
+      animation: slide 3s linear infinite;
+    }
+
+    @keyframes slide {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    .header-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c0392b;
+      margin-bottom: 10px;
+    }
+
+    .header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 58px;
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      color: #f0ede6;
+    }
+
+    .header-title span {
+      color: #c0392b;
+    }
+
+    .header-sub {
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: #666;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    .header-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .header-divider-line {
+      flex: 1;
+      height: 1px;
+      background: #2a2a2a;
+    }
+
+    .header-divider-dot {
+      width: 5px; height: 5px;
+      background: #c0392b;
+      border-radius: 50%;
+    }
+
+    /* ── AI SPOTLIGHT BANNER ── */
+    .ai-banner {
+      background: linear-gradient(135deg, #1a0a08 0%, #1f0f0b 50%, #160808 100%);
+      border: 1px solid #3d1a15;
+      border-top: none;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ai-badge {
+      background: #c0392b;
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ai-banner-text {
+      font-size: 12px;
+      color: #b87b74;
+      font-weight: 300;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-top: none;
+      padding: 30px 40px;
+    }
+
+    .section + .section {
+      border-top: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      background: #1a1a1a;
+      border: 1px solid #2e2e2e;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: #e8e6e0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    /* ── COMPETITOR CARD ── */
+    .competitor-card {
+      border: 1px solid #222;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .competitor-card:last-child { margin-bottom: 0; }
+
+    .competitor-card:hover {
+      border-color: #3a3a3a;
+    }
+
+    .card-header {
+      background: #161616;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+    }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.06em;
+      color: #f0ede6;
+    }
+
+    .card-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: #1e1e1e;
+      border: 1px solid #2e2e2e;
+      color: #888;
+    }
+
+    .card-tag.ai {
+      background: #1f0f0b;
+      border-color: #3d1a15;
+      color: #c0392b;
+    }
+
+    .card-tag.funding {
+      background: #0a1a0f;
+      border-color: #1a3d20;
+      color: #27ae60;
+    }
+
+    .card-tag.pricing {
+      background: #0f0f1a;
+      border-color: #1e1e3d;
+      color: #5b6abf;
+    }
+
+    .card-body {
+      padding: 14px 16px;
+      background: #121212;
+    }
+
+    .bullet-list {
+      list-style: none;
+    }
+
+    .bullet-list li {
+      font-size: 13px;
+      font-weight: 300;
+      color: #b0ada6;
+      line-height: 1.6;
+      padding: 5px 0 5px 18px;
+      position: relative;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .bullet-list li:last-child { border-bottom: none; }
+
+    .bullet-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #c0392b;
+      font-size: 11px;
+      font-weight: 400;
+      top: 6px;
+    }
+
+    .bullet-list li.ai-highlight {
+      background: #160a08;
+      border-radius: 3px;
+      padding-left: 18px;
+      padding-right: 8px;
+      margin: 3px 0;
+      color: #d4a09a;
+    }
+
+    .bullet-list li.ai-highlight::before {
+      content: '★';
+      color: #c0392b;
+      font-size: 10px;
+      top: 7px;
+    }
+
+    .demo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #c0392b;
+      text-decoration: none;
+      background: #1f0f0b;
+      border: 1px solid #3d1a15;
+      border-radius: 3px;
+      padding: 3px 8px;
+      margin-top: 8px;
+      transition: background 0.15s;
+    }
+
+    .demo-link:hover { background: #2a1410; }
+    .demo-link::before { content: '▶'; font-size: 8px; }
+
+    /* ── DIVIDER SECTION ── */
+    .section-divider {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-top: none;
+      padding: 0 40px;
+    }
+
+    .section-divider-inner {
+      border-top: 1px solid #1e1e1e;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: flex;
+      gap: 1px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: #141414;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      color: #c0392b;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #0d0d0d;
+      border: 1px solid #1e1e1e;
+      border-top: none;
+      padding: 22px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: #333;
+    }
+
+    .footer-brand span { color: #c0392b; }
+
+    .footer-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #333;
+      letter-spacing: 0.1em;
+      text-align: right;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+      justify-content: flex-end;
+    }
+
+    .footer-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #444;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-link:hover { color: #c0392b; }
+
+    /* ── PLACEHOLDER STYLE ── */
+    .placeholder {
+      background: #161616;
+      border: 1px dashed #2a2a2a;
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #b0ada6;
+      font-weight: 300;
+      line-height: 1.7;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    .placeholder strong {
+      color: #e8e6e0;
+      font-weight: 500;
+    }
+
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+<div class="email-wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-meta">Weekly Intelligence Report &nbsp;·&nbsp; Vol. 19 &nbsp;·&nbsp; Week of May 11, 2026</div>
+    <div class="header-title">The Rival<br/><span>Rundown</span></div>
+    <div class="header-sub">Compiled for Sindhu Kashyap &nbsp;·&nbsp; Delivered every Monday morning &nbsp;·&nbsp; SPM Competitive Landscape</div>
+    <div class="header-divider">
+      <div class="header-divider-line"></div>
+      <div class="header-divider-dot"></div>
+      <div class="header-divider-line"></div>
+    </div>
+  </div>
+
+  <!-- AI SPOTLIGHT BANNER -->
+  <div class="ai-banner">
+    <div class="ai-badge">⚡ AI Priority</div>
+    <div class="ai-banner-text">AI innovations are flagged with ★ throughout this report — demo links attached where available. This week: ServiceNow's Knowledge 2026 is dominating the conversation.</div>
+  </div>
+
+  <!-- STATS SUMMARY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <div class="section-label">This Week at a Glance</div>
+        <div class="section-title">The Numbers</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Competitors Tracked</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">7</div>
+        <div class="stat-label">AI Moves</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Growth Events</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">9</div>
+        <div class="stat-label">Product Updates</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI INNOVATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🤖</div>
+      <div>
+        <div class="section-label">Top Priority</div>
+        <div class="section-title">AI Innovations</div>
+      </div>
+    </div>
+
+    <!-- ServiceNow -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">ServiceNow</div>
+        <div class="card-tag ai">AI Move</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li class="ai-highlight">Unveiled <strong>Autonomous Workforce</strong> at Knowledge 2026 (May 5–8, Las Vegas) — AI specialists that complete end-to-end business processes across IT, HR, finance, legal, procurement, and security without human intervention. Early adopters report 90% autonomous IT ticket resolution. <a href="https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/" target="_blank">[Source: Fortune]</a></li>
+          <li class="ai-highlight">Launched <strong>Project Arc</strong> — a long-running, self-evolving autonomous desktop agent for knowledge workers, secured by NVIDIA's OpenShell runtime and governed by AI Control Tower. <a href="https://www.msn.com/en-us/news/other/servicenow-debuts-autonomous-ai-workforce-and-project-arc-at-knowledge-2026/gm-GMDB2E131C" target="_blank">[Source: MSN/ServiceNow]</a></li>
+          <li class="ai-highlight">All AI Control Tower capabilities are now <strong>included by default</strong> in every product and package — no add-ons, no separate purchase, no integrations required. <a href="https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-brings-Autonomous-Workforce-to-every-major-business-function/default.aspx" target="_blank">[Source: ServiceNow Newsroom]</a></li>
+          <li>Deep partnership with <strong>NVIDIA</strong>: integrating accelerated computing infrastructure with the ServiceNow AI Platform for faster enterprise AI agent deployment at scale. <a href="https://blogs.nvidia.com/blog/servicenow-autonomous-ai-agents-enterprises/" target="_blank">[Source: NVIDIA Blog]</a></li>
+          <li>Extended <strong>AI Control Tower governance</strong> to cover Microsoft Agent 365 ecosystem — IT admins get unified visibility across both ServiceNow and Microsoft environments.</li>
+        </ul>
+        <a href="https://www.servicenow.com/events/knowledge.html" class="demo-link" target="_blank">Knowledge 2026 Keynote Replays</a>
+      </div>
+    </div>
+
+    <!-- Atlassian -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Atlassian</div>
+        <div class="card-tag ai">AI Move</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li class="ai-highlight">Launched <strong>Agents in Jira</strong> (Feb 25, open beta) — enterprises can now assign tasks to AI agents from the same dashboard used for human employees, including setting deadlines and tracking status. Supports Atlassian Rovo and third-party agents. <a href="https://techcrunch.com/2026/02/25/jiras-latest-update-allows-ai-agents-and-humans-to-work-side-by-side/" target="_blank">[Source: TechCrunch]</a></li>
+          <li class="ai-highlight">Launched <strong>Remix</strong> in Confluence (April 8, open beta) — AI tool that transforms Confluence pages into charts, infographics, and scorecards without leaving the app. Updates dynamically as source content changes. <a href="https://techcrunch.com/2026/04/08/atlassian-confluence-visual-ai-tools-agents/" target="_blank">[Source: TechCrunch]</a></li>
+          <li class="ai-highlight"><strong>Rovo Skill for Jira Align</strong> (Early Access) — ask natural-language questions about Jira Align portfolio data directly within Rovo, bringing strategy and execution insights into flow of work.</li>
+          <li>Announced investments in <strong>Model Context Protocol (MCP)</strong> to allow customers to plug third-party agents (Lovable, Replit, Gamma) directly into Confluence workflows. <a href="https://www.businesswire.com/news/home/20260408825252/en/Atlassian-Launches-New-AI-Features-in-Confluence-to-Transform-Text-into-Dynamic-Visuals" target="_blank">[Source: BusinessWire]</a></li>
+        </ul>
+        <a href="https://www.atlassian.com/blog/announcements/ai-agents-in-jira" class="demo-link" target="_blank">Watch: Agents in Jira Demo</a>
+      </div>
+    </div>
+
+    <!-- Broadcom Clarity -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Broadcom Clarity (ValueOps)</div>
+        <div class="card-tag ai">AI Move</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li class="ai-highlight"><strong>Clarity Vaia</strong> (ValueOps Artificial Intelligence Agent) — embedded AI assistant purpose-built for strategic leadership. Analyzes project status, recommends resource allocations, generates portfolio summaries, and enables natural-language interaction with complex portfolio data across investments, team skills, capacity, and financials. <a href="https://techdocs.broadcom.com/us/en/ca-enterprise-software/business-management/clarity-project-and-portfolio-management-ppm-on-premise/16-4-1/using-clarity-vaia--ai-.html" target="_blank">[Source: Broadcom TechDocs]</a></li>
+          <li>Vaia originally launched as "Clarity Concierge" in v16.2.1, rebranded to Vaia in Clarity 16.3.0 — now in active production across enterprise customers.</li>
+          <li>New marketing research claims: <strong>95% of executives value SPM</strong>, yet only 44% find it effective due to fragmented data — positioned as a key differentiator for Clarity's unified data model.</li>
+        </ul>
+        <a href="https://valueops.broadcom.com/blog/clarity-vaia-purpose-built-ai-for-strategic-leadership-video" class="demo-link" target="_blank">Watch: Clarity Vaia Demo Video</a>
+      </div>
+    </div>
+
+    <!-- Microsoft -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Microsoft (Planner / Project)</div>
+        <div class="card-tag ai">AI Move</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li class="ai-highlight"><strong>Planner Agent</strong> (renamed from Project Manager Agent mid-March 2026) — now rolled out to Planner Premium and basic plan users. Generates project plans, sets goals, tracks status, and reacts to changes autonomously. <a href="https://www.uctoday.com/project-management/microsoft-planner-gets-ai-boost-and-compliance-upgrades-as-copilot-integration-deepens/" target="_blank">[Source: UC Today]</a></li>
+          <li class="ai-highlight">Copilot for Power Apps now covers full project/program/portfolio/resource/strategy data with four built-in agents: Data Entry, Data Exploration, Summary, and Chat agents — enabling AI-native portfolio management across the Microsoft 365 stack.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT LAUNCHES & UPDATES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div>
+        <div class="section-label">What They Shipped</div>
+        <div class="section-title">Product Launches & Updates</div>
+      </div>
+    </div>
+
+    <!-- Atlassian Jira Spring 2026 -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Atlassian — Jira Spring 2026</div>
+        <div class="card-tag">Product</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Spring 2026 release rolling out now — new UI, refreshed tables with customizable columns, inline filters, infinite scroll, and deep links for portfolio-scale epic/feature management. <a href="https://community.atlassian.com/forums/Jira-articles/Introducing-the-Jira-2026-Spring-Release/ba-p/3227380" target="_blank">[Source: Atlassian Community]</a></li>
+          <li>New <strong>Jira Align roadmaps</strong> GA — visualize strategy context in planning; Epics Grid with saved views now generally available.</li>
+          <li class="ai-highlight">AI agents embedded directly into project workflows — work forward proactively rather than just tracking status.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ServiceNow SPM -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">ServiceNow — SPM Now Assist</div>
+        <div class="card-tag">Product</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Now Assist for SPM: <strong>AI-generated sprint summaries</strong> at team level, AI-predicted Goal/Target confidence levels, and AI Status Reports that accurately predict schedule health using variance data. <a href="https://store.servicenow.com/store/app/5449a7ae1be06a50a85b16db234bcbb2" target="_blank">[Source: ServiceNow Store]</a></li>
+          <li>New <strong>SimStudio</strong> — simulation environment where employees practice real ServiceNow tasks before going live.</li>
+          <li>New <strong>AI Learning Guide</strong> — conversational coaching companion with personalized learning paths for platform adoption.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Microsoft Project Online Retirement -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Microsoft — Project Online Retirement</div>
+        <div class="card-tag">Product</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>Microsoft Project Online retires September 30, 2026</strong> — all customers must migrate to Planner Premium (formerly Project for the web). This is a forced migration moment affecting thousands of enterprise accounts. <a href="https://www.aguidetocloud.com/licensing/microsoft-project/" target="_blank">[Source: A Guide to Cloud]</a></li>
+          <li>Planner Premium is being positioned as the strategic successor — includes resource management, advanced scheduling, and enterprise portfolio management on Plan 3 and Plan 5.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Planisware -->
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Planisware</div>
+        <div class="card-tag funding">Growth</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Q1 2026 revenue up <strong>+13.6% in constant currency</strong> to €51M; SaaS &amp; Hosting revenue up +20.5%, now 51% of total revenue. Stock rose 4.8% on results. Market cap ~$1.25B. <a href="https://finance.yahoo.com/markets/stocks/articles/planisware-strong-start-q1-2026-050000130.html" target="_blank">[Source: Yahoo Finance]</a></li>
+          <li class="ai-highlight">AI-powered capabilities across the unified Planisware platform cited as "generating tangible interest and reinforcing competitive differentiation in every sales cycle."</li>
+          <li>Expanded physical presence: new offices opened in <strong>Rome, Italy</strong> and <strong>Vienna, Austria</strong> (third DACH office) to deepen enterprise customer engagement in key industrial markets. <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-planisware-reports-strong-q1-2026-growth-stock-rises-26-93CH-4617127" target="_blank">[Source: Investing.com]</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNDING & ACQUISITIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💰</div>
+      <div>
+        <div class="section-label">Money Moves</div>
+        <div class="section-title">Funding & Acquisitions</div>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Planisware</div>
+        <div class="card-tag funding">Public Company</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>As a publicly listed company (PLNW.PA), Planisware's strong Q1 2026 earnings and stock uptick (+4.8%) signal growing investor confidence in the SPM segment. Full-year 2026 guidance: low double-digit revenue growth, ~37% EBITDA margin. <a href="https://pitchbook.com/profiles/company/41023-18" target="_blank">[Source: PitchBook]</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Dragonboat</div>
+        <div class="card-tag funding">Series A</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Raised <strong>$12M Series A</strong> led by Insight Partners, with participation from Act One Ventures, Roble Ventures, and Gingerbread Capital — purpose-built product portfolio management platform targeting outcome-focused teams and AI-driven roadmap recommendations. <a href="https://dragonboat.io/blog/dragonboat-funding-a/" target="_blank">[Source: Dragonboat Blog]</a></li>
+          <li>Core capabilities include: intake &amp; roadmapping, resource &amp; capacity planning, dependency &amp; cost management, and AI-driven recommendations — a direct emerging threat in the SPM/PPM space.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING CHANGES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏷️</div>
+      <div>
+        <div class="section-label">Watch Your Wallet</div>
+        <div class="section-title">Pricing Changes</div>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Microsoft Planner / Project</div>
+        <div class="card-tag pricing">Pricing</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Planner Premium (Project for the Web) pricing tiers: <strong>Plan 1 at $10/user/month</strong>, Plan 3 at $30/user/month, Plan 5 at $55/user/month (billed annually). <a href="https://www.microsoft.com/en-us/microsoft-365/planner/microsoft-planner-plans-and-pricing" target="_blank">[Source: Microsoft]</a></li>
+          <li>With <strong>Project Online retiring Sept 30, 2026</strong>, enterprise accounts on legacy pricing will be forced into new Planner Premium tiers — creating a migration window where Planview can compete aggressively.</li>
+          <li>AI Planner Agent now extended to basic plan users (mid-March 2026) at no added cost — effectively raising baseline AI expectations for the entire mid-market segment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">ServiceNow</div>
+        <div class="card-tag pricing">Pricing</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>AI capabilities (Now Assist, AI Control Tower) are now <strong>included across all products by default</strong> — no separate AI add-on purchase required. This effectively removes the AI upsell tier and raises the perceived value floor of the platform. <a href="https://upperedge.com/servicenow/servicenows-ai-enabled-portfolio-and-new-product-packaging-what-customers-should-challenge-before-they-commit/" target="_blank">[Source: UpperEdge]</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE MOVES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">👔</div>
+      <div>
+        <div class="section-label">The Corner Office</div>
+        <div class="section-title">Executive Moves</div>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Atlassian</div>
+        <div class="card-tag">Leadership</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>CTO Rajeev Rajan departed March 31, 2026</strong> after nearly four years. His responsibilities were split across two successors: <strong>Taroon Mandhana</strong> as CTO of Teamwork, and <strong>Vikram Rao</strong> as CTO of Enterprise &amp; Chief Trust Officer. <a href="https://thenextweb.com/news/atlassian-is-cutting-1600-jobs-and-replacing-its-cto" target="_blank">[Source: The Next Web]</a></li>
+          <li>Atlassian cut <strong>1,600 employees (~10% of workforce)</strong> in March 2026, citing AI-driven restructuring to self-fund enterprise AI and sales investments. Pre-tax restructuring charges estimated at $225M–$236M. <a href="https://www.cnbc.com/2026/03/11/atlassian-slashes-10percent-of-workforce-to-self-fund-investments-in-ai.html" target="_blank">[Source: CNBC]</a></li>
+          <li>Reorganized into dedicated, accountable leadership teams across Atlassian's Collections portfolio — signaling a stronger enterprise go-to-market focus.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKETING CAMPAIGNS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📣</div>
+      <div>
+        <div class="section-label">Making Noise</div>
+        <div class="section-title">Marketing Campaigns</div>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">ServiceNow</div>
+        <div class="card-tag">Campaign</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Knowledge 2026 (Las Vegas, May 5–8) served as ServiceNow's biggest AI marketing moment of the year — CEO Bill McDermott and NVIDIA CEO Jensen Huang co-keynoted, with messaging: <em>"Enterprises need AI that senses, decides, and securely acts."</em> <a href="https://fortune.com/2026/05/05/servicenow-knowledge-2026-autonomous-workforce-microsoft-nvidia-ai-announcements/" target="_blank">[Source: Fortune]</a></li>
+          <li class="ai-highlight">"Autonomous Workforce" now the flagship go-to-market positioning — enterprise AI that runs complete business processes with full auditability.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Broadcom Clarity (ValueOps)</div>
+        <div class="card-tag">Campaign</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Running an industry-specific marketing push with dedicated Clarity solution briefs for <strong>Financial Services</strong> and <strong>Healthcare</strong> — framing SPM as essential for aligning digital investment with regulatory compliance and patient outcomes.</li>
+          <li class="ai-highlight">Central campaign theme: new research claiming <strong>"95% of executives value SPM, but only 44% find it effective"</strong> due to fragmented data and poor AI investment oversight — positions Vaia as the antidote. <a href="https://valueops.broadcom.com/blog/clarity-for-ai-strategy" target="_blank">[Source: Broadcom ValueOps]</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="card-header">
+        <div class="card-name">Atlassian</div>
+        <div class="card-tag">Campaign</div>
+      </div>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li>Spring 2026 launch campaign focused on "AI agents doing real work" — but generating mixed press coverage. The simultaneous 1,600-person layoff announcement led to headlines about "AI washing," creating brand credibility risk. <a href="https://www.thehrdigest.com/atlassian-layoffs-reignite-conversations-around-the-rise-of-ai-washing-in-2026/" target="_blank">[Source: HR Digest]</a></li>
+          <li>Atlassian stock lost over 50% of value since January amid "SaaSpocalypse" — sector-wide fear that AI agents make conventional SaaS tools obsolete. Watch how they address this at upcoming earnings.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR NOTE / KEY TAKEAWAY -->
+  <div class="section">
+    <div class="placeholder">
+      <strong>📌 Strategic Takeaway — Week of May 11, 2026</strong><br/><br/>
+      ServiceNow's Knowledge 2026 is the most significant SPM-adjacent move this week. Their "Autonomous Workforce" framing — AI that doesn't assist but <em>completes</em> entire processes — combined with bundling all AI by default, raises the stakes significantly. Microsoft's forced Project Online retirement (Sept 30) is a displacement opportunity: thousands of enterprise accounts are in migration mode. Atlassian's CTO shakeup and layoffs create short-term credibility noise despite strong AI product shipping cadence. The consistent theme across all competitors: AI is no longer a premium feature — it's table stakes. Planview's differentiation must lean hard on outcome-based portfolio intelligence and proven enterprise depth.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">The Rival <span>Rundown</span></div>
+    <div class="footer-meta">
+      Weekly · Confidential · Internal Use Only
+      <div class="footer-links">
+        <a class="footer-link" href="#">View Archive</a>
+        <a class="footer-link" href="#">Submit a Tip</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
